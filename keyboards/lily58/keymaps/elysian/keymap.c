@@ -120,11 +120,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |KVMSw |
+ * |      |Plain |Breath|Rnbow |Swirl |Knight|                    |      |      |      |      |      |KVMSw |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |RGB On| Hue+ | Sat+ | Val+ |      |                    |      |      |      |      |      |      |
+ * |RGB On| Mode+| Hue+ | Sat+ | Val+ |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | Mode | Hue- | Sat- | Val- |      |-------.    ,-------|      |      |      |      |      |      |
+ * |      | Mode-| Hue- | Sat- | Val- |      |-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|  Prev |    | Next  |------+------+------+------+------+------|
  * |ScrLck|      |      |      |      |      |-------|    |-------|      |      |      | Vol- | Vol+ | Mute |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_ADJUST] = LAYOUT( \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KVMSWTCH, \
-  XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_K,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KVMSWTCH, \
+  RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD, KC_VOLU, KC_MUTE, \
                              _______, _______, _______, _______, KC_MPLY, _______, _______, _______ \
  )
@@ -165,6 +165,7 @@ const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
+const char *read_rgb_info(void);
 
 // const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
@@ -176,10 +177,12 @@ void oled_task_user(void) {
     // If you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
+    //oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
+    oled_write_ln("", false);
+    oled_write_ln(read_rgb_info(), false);
   } else {
     oled_write(read_logo(), false);
   }
