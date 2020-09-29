@@ -166,6 +166,7 @@ void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 const char *read_rgb_info(void);
+const char *read_rgb_mode(void);
 
 // const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
@@ -181,8 +182,9 @@ void oled_task_user(void) {
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
-    oled_write_ln("", false);
+    //oled_write_ln("", false);
     oled_write_ln(read_rgb_info(), false);
+    oled_write_ln(read_rgb_mode(), false);
   } else {
     oled_write(read_logo(), false);
   }
