@@ -10,66 +10,77 @@ extern rgblight_status_t rgblight_status;
 
 char rbf_mode_str[24];
 const char *read_rgb_mode(void) {
-  snprintf(rbf_mode_str, sizeof(rbf_mode_str), "Mode: %s", get_mode());
-  return rbf_mode_str;
+  if (rgblight_config.enable) {
+    uint8_t offset = rgblight_config.mode - rgblight_status.base_mode;
+    char offset_label[4];
+    snprintf(offset_label, sizeof(offset_label), offset ? "+%d" : "", offset);
+    snprintf(rbf_mode_str, sizeof(rbf_mode_str), "%s%s",
+        get_mode(),
+        offset_label);
+    return rbf_mode_str;
+  }
+  return "";
 }
 
 char *get_mode(void) {
-    if (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_LIGHT) {
-        return "Static";
+    if (!rgblight_config.enable) {
+        return RGBMODE_OFF;
     }
-# ifdef RGBLIGHT_EFFECT_BREATHING
+    if (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_LIGHT) {
+        return RGBMODE_STATIC;
+    }
+#ifdef RGBLIGHT_EFFECT_BREATHING
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
-        return "Breathing";
+        return RGBMODE_BREATHING;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) {
-        return "Rainbow Mood";
+        return RGBMODE_RAINBOW_MOOD;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) {
-        return "Rainbow Swirl";
+        return RGBMODE_RAINBOW_SWIRL;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) {
-        return "Static Gradient";
+        return RGBMODE_STATIC_GRADIENT;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_TWINKLE
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
-        return "Twinkle";
+        return RGBMODE_TWINKLE;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_SNAKE
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_SNAKE) {
-        return "Snake";
+        return RGBMODE_SNAKE;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_KNIGHT
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_KNIGHT) {
-        return "Knight Rider";
+        return RGBMODE_KNIGHT;
     }
  #endif
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_CHRISTMAS) {
-        return "Christmas";
+        return RGBMODE_CHRISTMAS;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RGB_TEST
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_RGB_TEST) {
-        return "RGB Test";
+        return RGBMODE_RGB_TEST;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_ALTERNATING
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_ALTERNATING) {
-        return "Alternating";
+        return RGBMODE_ALTERNATING;
     }
 #endif
     else {
-        return "None";
+        return RGBMODE_NONE;
     }
 }
 #endif
