@@ -23,9 +23,6 @@ const char *read_rgb_mode(void) {
 }
 
 char *get_mode(void) {
-    if (!rgblight_config.enable) {
-        return RGBMODE_OFF;
-    }
     if (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_LIGHT) {
         return RGBMODE_STATIC;
     }

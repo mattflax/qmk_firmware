@@ -1,6 +1,5 @@
 #ifdef RGBLIGHT_ENABLE
 
-#define RGBMODE_OFF "Off"
 #define RGBMODE_STATIC "Static"
 #define RGBMODE_NONE "None"
 #ifdef RGBLIGHT_EFFECT_BREATHING
