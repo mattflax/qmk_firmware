@@ -22,6 +22,16 @@ enum custom_keycodes {
     KC_NUMPAD,
 };
 
+// Tap Dance declarations
+enum {
+    TD_SFT_CAPS,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -33,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LCtrl |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |SftEnt|
+ * |Sft/CL|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |SftEnt|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |LCtrl | LAlt |Super |LOWER | /Space  /       \Space \  |RAISE | RCTR | RAlt | FUNC |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -44,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
   KC_LCTL, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,    XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT, \
+  TD(TD_SFT_CAPS),KC_Z,KC_X,KC_C,    KC_V,    KC_B, KC_MUTE,    XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT, \
                    KC_LCTL, KC_LALT, KC_LGUI, KC_LOWER,KC_SPC,   KC_SPC, KC_RAISE,KC_RCTL, KC_RALT, TT(_FUNCTION) \
 ),
 /*
@@ -138,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |   `  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |  F11 |                    |  F12 |      |      |      |      |      |
+ * |      |      |      |      |      |  F11 |                    |  F12 |      |      |      |      |PrtScr|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------.    ,-------| Home | PgDn | PgUp | End  |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
@@ -150,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FUNCTION] = LAYOUT( \
   KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL, \
-  _______, _______, _______, _______, _______, KC_F11,                     KC_F12,  _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, KC_F11,                     KC_F12,  _______, _______, _______, _______, KC_PSCR, \
   _______, _______, _______, _______, _______, _______,                    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, \
   KC_SLCK, _______, _______, _______, _______, _______, _______,  _______, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, \
                     _______, _______, _______, _______, _______,  KC_MPLY, _______, _______, _______, _______ \
@@ -238,9 +248,9 @@ static void print_status_narrow(void) {
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-    // oled_write_P(PSTR("\n\n"), false);
-    // led_t led_usb_state = host_keyboard_led_state();
-    // oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_P(PSTR("\n\n"), false);
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
