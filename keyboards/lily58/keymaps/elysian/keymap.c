@@ -168,7 +168,7 @@ const char *read_rgb_info(void);
 const char *read_rgb_mode(void);
 
 // const char *read_mode_icon(bool swap);
-const char *read_host_led_state(void);
+// const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
@@ -181,11 +181,13 @@ void oled_task_user(void) {
     //oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    oled_write_ln(read_host_led_state(), false);
+    //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
     //oled_write_ln("", false);
     oled_write_ln(read_rgb_info(), false);
     oled_write_ln(read_rgb_mode(), false);
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
   } else {
     oled_write(read_logo(), false);
   }
