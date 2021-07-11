@@ -4,51 +4,50 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _WORKMAN 3
-#define _LOWER 4
-#define _RAISE 5
-#define _MOUSE 6
-#define _ADJUST 16
+enum lets_split_layers {
+  _QWERTY,
+  _COLEMAK,
+  _DVORAK,
+  _WORKMAN,
+  _GAMING,
+  _LOWER,
+  _RAISE,
+  _FUNCTION,
+  _ADJUST,
+  _MOUSE
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
-  WORKMAN
+  WORKMAN,
+  LOWER,
+  RAISE,
+  ADJUST,
+  FUNC,
+  KVMSW,
+  GAMING,
+  MOUSE
 };
-
-/* Custom keycodes for function layers */
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
-#define ADJUST MO(_ADJUST)
-#define MOUSE  MO(_MOUSE)
-
-/* Custom keycodes to toggle layout layers */
-#define QWERTY  TO(_QWERTY)
-#define DVORAK  TO(_DVORAK)
-#define COLEMAK TO(_COLEMAK)
-#define WORKMAN TO(_WORKMAN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SftEnt|
+ * | Ctrl |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SftEnt|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Shift| Func | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
-   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT , \
-   ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
+   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT , \
+   KC_LSFT, FUNC,    KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
 /* Colemak
@@ -105,6 +104,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
+/* Gaming
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |SftEnt|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |Adjust| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAMING] = LAYOUT_ortho_4x12(
+   KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT, \
+   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_SFTENT , \
+   ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+),
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
@@ -141,6 +157,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
 ),
 
+/* Function
+ * ,-----------------------------------------------------------------------------------.
+ * |   `  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | Del  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Del  |      |      |      |      |  F11 |  F12 |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_FUNCTION] = LAYOUT_ortho_4x12( \
+  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL, \
+  KC_DEL,  _______, _______, _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+),
+
 /* Mouse (Lower + Alt)
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |MBtn1 |MBtn2 |      |      |      |      |
@@ -161,28 +195,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+ * |      | Reset|      |      |      |      |      |      |      |      |      |KVMSw |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Workmn|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |ScrLck|      |      |      |      |      |      |      |      |      |      |      |
+ * |ScrLck|      |      |      |      |      |      |Gaming|      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12( \
-  _______, RESET,  	_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
+  _______, RESET,  	_______, _______, _______, _______, _______, _______, _______, _______, _______, KVMSW, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
-  KC_SLCK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  KC_SLCK, _______, _______, _______, _______, _______, _______, GAMING, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 };
 
+/*
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
+*/
 
-/*
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -205,8 +240,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_WORKMAN);
       }
       return false;
+    case GAMING:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_GAMING);
+      }
+      return false;
+	case LOWER:
+	  if (record->event.pressed) {
+	    layer_on(_LOWER);
+		update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+	    layer_off(_LOWER);
+		update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+	  return false;
+	case RAISE:
+	  if (record->event.pressed) {
+	    layer_on(_RAISE);
+		update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+	    layer_off(_RAISE);
+		update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+	  return false;
+	case ADJUST:
+	  if (record->event.pressed) {
+	    layer_on(_ADJUST);
+      } else {
+	    layer_off(_ADJUST);
+      }
+	  return false;
+	case FUNC:
+	  if (record->event.pressed) {
+	    layer_on(_FUNCTION);
+      } else {
+	    layer_off(_FUNCTION);
+      }
+	  return false;
+	case MOUSE:
+	  if (record->event.pressed) {
+	    layer_on(_MOUSE);
+      } else {
+	    layer_off(_MOUSE);
+      }
+	  return false;
+	case KVMSW:
+	  if (record->event.pressed) {
+	    // KVM Switch pressed - send switch sequence
+		// ScrlLock, ScrlLock, Up
+		SEND_STRING(SS_TAP(X_SLCK) SS_TAP(X_SLCK) SS_TAP(X_UP));
+	  }
+	  break;
   }
   return true;
 }
-*/
 
