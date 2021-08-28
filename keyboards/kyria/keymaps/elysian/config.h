@@ -19,6 +19,8 @@
 #define TAPPING_TERM 200
 #define TAPPING_TOGGLE 2
 
+#define LEADER_TIMEOUT 300
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
