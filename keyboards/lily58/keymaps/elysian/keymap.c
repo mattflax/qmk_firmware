@@ -26,6 +26,7 @@ enum custom_keycodes {
   WORKMAN,
   LOWER,
   RAISE,
+  KC_WS1, KC_WS2, KC_WS3, KC_WS4, KC_WS5, KC_WS6, KC_WS7, KC_WS8, KC_WS9, KC_WS10
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -34,22 +35,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LCtrl |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |Ctl/Tb|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |SftEnt|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |LAlt  | LGUI |LOWER | /Space+ /       \Space+\  |RAISE | LAlt |  FN  |
- *                   |      |      |      |/ Super /         \ Func \ |      |      |      |
+ *                   |      |      |      |/ Raise /         \ Func \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [_QWERTY] = LAYOUT( \
   KC_ESC,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
-  KC_LCTRL,KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
+  LCTL_T(KC_TAB),KC_A,KC_S, KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC, KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT, \
-                            KC_LALT, KC_LGUI, LOWER,LGUI_T(KC_SPC),LT(_FUNCTION,KC_SPC),RAISE,KC_LALT, TT(_FUNCTION) \
+                            KC_LALT, KC_LGUI, LOWER,LT(_RAISE, KC_SPC),LT(_FUNCTION,KC_SPC),RAISE,KC_LALT, TT(_FUNCTION) \
 ),
 
 /*
@@ -79,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |   `  |      |      |      |      |      |                    |      |      |      |      |      | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   !  |   "  | # £  |   $  |   %  |                    |   ^  |   &  |   *  |   (  |   )  |      |
+ * |   `  |   !  |   "  | # £  |   $  |   %  |                    |   ^  |   &  |   *  |   (  |   )  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |   [  |   ]  |   {  |   }  |   {  |-------.    ,-------|   }  |   _  |   +  |      |      |Insert|
  * |------+------+------+------+------+------| Home  |    |  End  |------+------+------+------+------+------|
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT( \
   KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL,\
-  _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
+  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
   _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_LCBR,                   KC_RCBR, KC_UNDS, KC_PLUS, _______, _______, KC_INS, \
   KC_CAPS, KC_NUBS, _______, _______, _______, _______, KC_HOME, KC_END,  KC_NUBS, KC_NUHS, S(KC_LEFT),S(KC_DOWN),S(KC_UP),S(KC_RGHT), \
                              _______, _______, _______, KC_HOME, KC_END,  _______,  _______, _______\
@@ -103,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |   [  |-------.    ,-------|   ]  |   -  |   =  |      |      |Insert|
+ * |      | WS1  | WS2  | WS2  | WS4  | WS5  |-------.    ,-------|   ]  |   -  |   =  |      |      |Insert|
  * |------+------+------+------+------+------|  PgDn |    |  PgUp |------+------+------+------+------+------|
- * |      |   |  |      |      |      |      |-------|    |-------|   |  |   ~  | Left | Down |  Up  | Right|
+ * |      | WS6  | WS7  | WS8  | WS9  | WS10 |-------|    |-------|   |  |   ~  | Left | Down |  Up  | Right|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |LOWER | /Space  /       \Space \  |RAISE |      |      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -113,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT( \
  S(KC_GRV),_______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL, \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-  _______, _______, _______, _______, _______, KC_LBRC,                   KC_RBRC, KC_MINS, KC_EQL,  _______, _______, KC_INS, \
-  _______,S(KC_NUBS),_______,_______, _______, _______, KC_PGDN, KC_PGUP,S(KC_NUBS),S(KC_NUHS),KC_LEFT,KC_DOWN, KC_UP, KC_RGHT, \
+ S(KC_GRV),KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+  _______, KC_WS1,  KC_WS2,  KC_WS3,  KC_WS4,  KC_WS5,                    KC_RBRC, KC_MINS, KC_EQL,  _______, _______, KC_INS, \
+  _______, KC_WS6,  KC_WS7,  KC_WS8,  KC_WS9,  KC_WS10, KC_PGDN, KC_PGUP,S(KC_NUBS),S(KC_NUHS),KC_LEFT,KC_DOWN, KC_UP, KC_RGHT, \
                              _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
@@ -271,6 +272,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_WORKMAN);
       }
       return false;
+    case KC_WS1:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("1"));
+      }
+      break;
+    case KC_WS2:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("2"));
+      }
+      break;
+    case KC_WS3:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("3"));
+      }
+      break;
+    case KC_WS4:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("4"));
+      }
+      break;
+    case KC_WS5:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("5"));
+      }
+      break;
+    case KC_WS6:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("6"));
+      }
+      break;
+    case KC_WS7:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("7"));
+      }
+      break;
+    case KC_WS8:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("8"));
+      }
+      break;
+    case KC_WS9:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("9"));
+      }
+      break;
+    case KC_WS10:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("0"));
+      }
+      break;
+    default:
+      return true;
   }
 
   return true;
