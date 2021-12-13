@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum LAYERS {
     _QWERTY = 0,
+    _GAME,
     _COLEMAK,
     _WORKMAN,
     _NUMPAD,
@@ -32,6 +33,8 @@ enum LAYERS {
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
+    KC_GAME,
+    KC_COLEMAK,
     KC_WORKMAN,
     KC_KVMSWITCH,
     KC_WS1, KC_WS2, KC_WS3, KC_WS4, KC_WS5, KC_WS6, KC_WS7, KC_WS8, KC_WS9, KC_WS10
@@ -56,6 +59,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     LCTL_T(KC_TAB),KC_A,KC_S,  KC_D,    KC_F,    KC_G,      KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
+                   KC_LGUI,  MO(_LOWER),LT(_RAISE,KC_SPC),  LT(_FUNCTION,KC_SPC),  MO(_RAISE), KC_LALT
+
+  ),
+
+/*
+ * Base Layer: GAME
+ *
+ * ,-------------------------------------------.  ,-------------------------------------------.
+ * | Escape |   Q  |   W  |   E  |   R  |   T  |  |   Y  |   U  |   I  |   O  |   P  |BackSpc |
+ * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
+ * |  Tab   |   A  |   S  |  D   |   F  |   G  |  |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+ * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |  |   N  |   M  | ,  < | . >  | /  ? |SftEnter|
+ * `----------------------+------+------+------|  |------+------+------+------+------+--------'
+ *                        | Ctrl | Lower| Space|  | Space| Raise| Alt  |
+ *                        |      |      |      |  |      |      |      |
+ *                        `--------------------'  `--------------------'
+ */
+  [_GAME] = LAYOUT_split_3x6_3(
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
+                   KC_LCTL,  MO(_LOWER), KC_SPC,  KC_SPC,  MO(_RAISE), KC_LALT
+
+  ),
+
+/*
+ * Base Layer: ColemakDH
+ *
+ * ,-------------------------------------------.  ,-------------------------------------------.
+ * | Escape |   Q  |   W  |   F  |   P  |   B  |  |   J  |   L  |   U  |   Y  |   ;  |BackSpc |
+ * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
+ * |Ctrl/Tab|   A  |   R  |  S   |   T  |   G  |  |   M  |   N  |   E  |   I  |   O  |  ' "   |
+ * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   D  |   V  |  |   K  |   H  | ,  < | . >  | /  ? |SftEnter|
+ * `----------------------+------+------+------|  |------+------+------+------+------+--------'
+ *                        | Super| Lower| Space|  | Space| Raise| Alt  |
+ *                        |      |      | Raise|  | Func |      |      |
+ *                        `--------------------'  `--------------------'
+ */
+  [_COLEMAK] = LAYOUT_split_3x6_3(
+    KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,      KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
+    LCTL_T(KC_TAB),KC_A,KC_R,  KC_S,    KC_T,    KC_G,      KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,      KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
+                   KC_LGUI,  MO(_LOWER),LT(_RAISE,KC_SPC),  LT(_FUNCTION,KC_SPC),  MO(_RAISE), KC_LALT
+
+  ),
+
+/*
+ * Base Layer: Workman
+ *
+ * ,-------------------------------------------.  ,-------------------------------------------.
+ * | Escape |   Q  |   D  |   R  |   W  |   B  |  |   J  |   L  |   U  |   P  |   ;  |BackSpc |
+ * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
+ * |Ctrl/Tab|   A  |   S  |   H  |   T  |   G  |  |   Y  |   N  |   E  |   O  |   I  |  ' "   |
+ * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   M  |   C  |   V  |  |   K  |   L  | ,  < | . >  | /  ? |SftEnter|
+ * `----------------------+------+------+------|  |------+------+------+------+------+--------'
+ *                        | Super| Lower| Space|  | Space| Raise| Alt  |
+ *                        |      |      | Raise|  | Func |      |      |
+ *                        `--------------------'  `--------------------'
+ */
+  [_WORKMAN] = LAYOUT_split_3x6_3(
+    KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,      KC_J,    KC_L,    KC_U,    KC_P, KC_SCLN, KC_BSPC,
+    LCTL_T(KC_TAB),KC_A,KC_S,  KC_H,    KC_T,    KC_G,      KC_Y,    KC_N,    KC_E,    KC_O,    KC_I, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,      KC_K,    KC_L, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
                    KC_LGUI,  MO(_LOWER),LT(_RAISE,KC_SPC),  LT(_FUNCTION,KC_SPC),  MO(_RAISE), KC_LALT
 
   ),
@@ -127,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layouts, KVM
  *
  * ,-------------------------------------------.  ,-------------------------------------------.
- * |  RESET |      |Qwerty|      |Wrkman|      |  |      |      |      |      |      | KVMSw  |
+ * |  RESET |      |Qwerty|Colemk|Wrkman| Game |  |      |      |      |      |      | KVMSw  |
  * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |  |      |      |      |      |      | Insert |
  * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
@@ -138,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `--------------------'  `--------------------'
  */
   [_ADJUST] = LAYOUT_split_3x6_3(
-    RESET, XXXXXXX,KC_QWERTY,XXXXXXX,KC_WORKMAN,XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_KVMSWITCH,
+    RESET, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_WORKMAN,KC_GAME,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_KVMSWITCH,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                KC_LGUI, _______,  KC_SPC,    KC_ENT, _______, KC_RALT
@@ -154,6 +223,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
+            }
+            return false;
+        case KC_GAME:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_GAME);
+            }
+            return false;
+         case KC_COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
             }
             return false;
          case KC_WORKMAN:
@@ -232,6 +311,9 @@ static void print_status_narrow(void) {
         case _QWERTY:
             oled_write_ln_P(PSTR("Qwrt"), false);
             break;
+        case _GAME:
+            oled_write_ln_P(PSTR("Game"), false);
+            break;
         case _COLEMAK:
             oled_write_ln_P(PSTR("Clmk"), false);
             break;
@@ -241,7 +323,7 @@ static void print_status_narrow(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
@@ -270,13 +352,12 @@ static void print_status_narrow(void) {
     oled_write_P(PSTR("\n"), false);
 
     // Modifiers
-    oled_write_ln_P(PSTR("Mods"), false);
     uint8_t mod_state = get_mods();
-    oled_write_P(PSTR("C"), (mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL));
-    oled_write_P(PSTR("A"), (mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT));
-    oled_write_P(PSTR("W"), (mod_state & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI));
-    oled_write_P(PSTR("S"), (mod_state & MOD_MASK_SHIFT));
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR("Sup"), (mod_state & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI));
+    oled_write_ln_P(PSTR("Alt"), (mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT));
+    oled_write_ln_P(PSTR("Ctrl"), (mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL));
+    oled_write_ln_P(PSTR("Shft"), (mod_state & MOD_MASK_SHIFT));
+    oled_write_ln_P(PSTR("\n"), false);
 
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
