@@ -18,6 +18,7 @@
 enum layers {
     _QWERTY = 0,
     _WORKMAN,
+    _GAME,
     _LOWER,
     _RAISE,
     _FUNCTION,
@@ -27,6 +28,7 @@ enum layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_WORKMAN,
+    KC_GAME,
     KC_KVMSWITCH,
     KC_WS1, KC_WS2, KC_WS3, KC_WS4, KC_WS5, KC_WS6, KC_WS7, KC_WS8, KC_WS9, KC_WS10
 };
@@ -71,6 +73,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LCTL_T(KC_TAB),KC_A,KC_S,KC_H,   KC_T,   KC_G,                                         KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT,
       KC_LSFT, KC_Z,   KC_X,   KC_M,   KC_C,   KC_V,   KC_HOME, KC_DEL,   KC_BSPC,  KC_END,  KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
               KC_MEH, KC_LGUI, KC_LALT,MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), KC_TAB,  KC_LEAD, TT(_FUNCTION)
+    ),
+/*
+ * Base Layer: Game
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * | Escape |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |BackSpc |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |  Tab   |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | Home | Del  |  | BkSp |  End |   N  |   M  | ,  < | . >  | /  ? |SftEnter|
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        | Ctrl | Super| Alt  | Lower| Space|  | Space| Raise| Tab  | LEAD | Func |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_GAME] = LAYOUT(
+      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+      KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_HOME, KC_DEL,   KC_BSPC,  KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+                           KC_LCTL, KC_LGUI, KC_LALT, MO(_LOWER),KC_SPC,  KC_SPC,MO(_RAISE),KC_TAB,  KC_LEAD, TT(_FUNCTION)
     ),
 /*
  * Lower Layer: Symbols
@@ -136,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layouts, KVM
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |Qwerty|      |Workmn|      |                              |      |      |      |      |      | KVMSw  |
+ * |        |      |Qwerty|      |Workmn| Game |                              |      |      |      |      |      | KVMSw  |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -147,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, _______,KC_QWERTY,_______,KC_WORKMAN,_______,                                    _______, _______, _______, _______, _______, KC_KVMSWITCH,
+      _______, _______,KC_QWERTY,_______,KC_WORKMAN,KC_GAME,                                    _______, _______, _______, _______, _______, KC_KVMSWITCH,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -188,6 +210,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case KC_WORKMAN:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_WORKMAN);
+            }
+            return false;
+         case KC_GAME:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_GAME);
             }
             return false;
         case KC_KVMSWITCH:
@@ -254,7 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
@@ -295,6 +322,9 @@ static void render_status(void) {
             break;
         case _WORKMAN:
             oled_write_P(PSTR("Workman\n"), false);
+            break;
+        case _GAME:
+            oled_write_P(PSTR("Game\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undef\n"), false);
@@ -340,12 +370,13 @@ static void render_status(void) {
     oled_write_P(PSTR("Sft"), (mod_state & MOD_MASK_SHIFT));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_kyria_logo();
     }
+    return false;
 }
 #endif
 
