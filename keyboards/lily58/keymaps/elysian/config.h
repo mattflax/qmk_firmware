@@ -37,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 #define TAPPING_TOGGLE 2
 
+#define OLED_DRIVER_ENABLE
+
 #undef RGBLED_NUM
 #define RGBLED_NUM 8
 #define RGBLIGHT_SPLIT
