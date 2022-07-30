@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.  ,-------------------------------------------.
  * |    `   |  !   |   "  | # £  |   $  |   %  |  |   ^  |   &  |   *  |   (  |   )  | Delete |
  * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * |Nav Mode|  [   |   ]  |   {  |   }  | Home |  |  End |   _  |   +  |      |      | Insert |
+ * |Nav Mode|  [   |   ]  |   {  |   }  | Home |  |  End |   _  |   +  | PgDn | PgUp | Insert |
  * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
  * | CapsLk |      |      |      |      |      |  |   \  |   #  |SfLeft|SfDown|ShftUp| SRight |
  * `----------------------+------+------+------|  |------+------+------+------+------+--------'
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_LOWER] = LAYOUT_split_3x6_3(
     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-    OSL(_NAV),KC_LBRC,KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,    KC_END,  KC_UNDS, KC_PLUS, _______, _______, KC_INS,
+    OSL(_NAV),KC_LBRC,KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,    KC_END,  KC_UNDS, KC_PLUS, KC_PGDN, KC_PGUP, KC_INS,
     KC_CAPS, _______, _______, _______, _______, _______,    KC_NUBS, KC_NUHS, S(KC_LEFT),S(KC_DOWN),S(KC_UP),S(KC_RGHT),
                               MO(_NAV), _______, _______,    _______, _______, _______
   ),
@@ -155,19 +155,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.  ,-------------------------------------------.
  * |    ¬   |   1  |  2   |  3   |  4   |  5   |  |  6   |  7   |  8   |  9   |  0   | Delete |
  * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * | CtlTab | WS1  | WS2  | WS2  | WS4  | WS5  |  |      |   -  |   =  |  [   |  ]   | Insert |
+ * |  Tab   | WS1  | WS2  | WS2  | WS4  | WS5  |  |      |   -  |   =  |  [   |  ]   | Insert |
  * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
  * | CapsLk | WS6  | WS7  | WS8  | WS9  | WS10 |  |   |  |   ~  | Left | Down |  Up  | Right  |
  * `----------------------+------+------+------|  |------+------+------+------+------+--------'
- *                        |      |      |      |  |      |      |      |
+ *                        |      |      |LCtrl |  |      |      |      |
  *                        |      |      |      |  |      |      |      |
  *                        `--------------------'  `--------------------'
  */
   [_RAISE] = LAYOUT_split_3x6_3(
     S(KC_GRV),KC_1,   KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
-    LCTL(KC_TAB),KC_WS1,KC_WS2,KC_WS3,  KC_WS4,  KC_WS5,     _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_INS,
+    KC_TAB,  KC_WS1,  KC_WS2,  KC_WS3,  KC_WS4,  KC_WS5,     _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_INS,
     KC_CAPS, KC_WS6,  KC_WS7,  KC_WS8,  KC_WS9,  KC_WS10,    S(KC_NUBS),S(KC_NUHS),KC_LEFT,KC_DOWN,KC_UP, KC_RGHT,
-                               _______, _______, _______,    _______,  MO(_ADJUST), _______
+                               _______, _______, KC_LCTL,    _______,  _______, _______
   ),
 
 /*
@@ -218,9 +218,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.  ,-------------------------------------------.
  * |  RESET |      |Qwerty|Colemk|Wrkman| Game |  |      |      |      |      |      | KVMSw  |
  * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |  |      |      |      |      |      | Insert |
+ * |        |      |      |      |      |      |  |RGB On| Mode+| Hue+ | Sat+ | Val+ |        |
  * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
- * |        |      |      |      |      |      |  |   |  |   ~  | Left | Down |  Up  | Right  |
+ * |        |      |      |      |      |      |  |      | Mode-| Hue- | Sat- | Val- |        |
  * `----------------------+------+------+------|  |------+------+------+------+------+--------'
  *                        | Super| Lower| Space|  | Space| Raise| Tab  |
  *                        |      |      | Raise|  | Lower|      |      |
@@ -228,8 +228,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT_split_3x6_3(
     RESET, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_WORKMAN,KC_GAME,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_KVMSWITCH,
-    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
+    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,    XXXXXXX, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX,
                                KC_LGUI, _______,  KC_SPC,    KC_ENT, _______, KC_RALT
   )
 };
