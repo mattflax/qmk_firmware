@@ -227,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `--------------------'  `--------------------'
  */
   [_ADJUST] = LAYOUT_split_3x6_3(
-    RESET, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_WORKMAN,KC_GAME,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_KVMSWITCH,
+    QK_BOOT, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_WORKMAN,KC_GAME,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_KVMSWITCH,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,    XXXXXXX, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX,
                                KC_LGUI, _______,  KC_SPC,    KC_ENT, _______, KC_RALT
@@ -264,7 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // KVM Switch key pressed - send switch sequence
                 // ScrlLock, ScrlLock, Up
-                SEND_STRING(SS_TAP(X_SLCK) SS_TAP(X_SLCK) SS_TAP(X_UP));
+                SEND_STRING(SS_TAP(X_SCRL) SS_TAP(X_SCRL) SS_TAP(X_UP));
             }
             break;
         case KC_NAV:
