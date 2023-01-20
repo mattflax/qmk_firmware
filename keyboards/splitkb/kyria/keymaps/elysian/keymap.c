@@ -44,17 +44,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |Ctrl/Tab|   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  | Home | Del  |  | BkSp |  End |   N  |   M  | ,  < | . >  | /  ? |SftEnter|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | Home | Meh  |  | Hyper|  End |   N  |   M  | ,  < | . >  | /  ? |SftEnter|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Meh  | Alt  | Super| Lower| Space|  | Space| Raise| Tab  | LEAD | Func |
+ *                        | Alt  | Super| Super| Lower| Space|  | Space| Raise| Func | Ctrl | LEAD |
  *                        |      |      |      |      | Raise|  | Lower|      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
       LCTL_T(KC_TAB),KC_A,KC_S,KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_HOME, KC_DEL,   KC_BSPC,  KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
-              KC_MEH, KC_LALT, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), KC_TAB,  KC_LEAD, TT(_FUNCTION)
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_HOME, KC_MEH,  KC_HYPR,   KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+            KC_LALT, KC_LGUI, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), MO(_FUNCTION),   KC_LCTL, KC_LEAD
     ),
 /*
  * Base Layer: Colemak DH
@@ -64,17 +64,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |Ctrl/Tab|   A  |   R  |  S   |   T  |   G  |                              |   M  |   N  |   E  |   I  |   O  |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   D  |   V  | Home | Del  |  | BkSp |  End |   K  |   H  | ,  < | . >  | /  ? |SftEnter|
+ * | LShift |   Z  |   X  |   C  |   D  |   V  | Home | Meh  |  | Hyper|  End |   K  |   H  | ,  < | . >  | /  ? |SftEnter|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Meh  | Alt  | Super| Lower| Space|  | Space| Raise| Tab  | LEAD | Func |
+ *                        | Alt  | Super| Super| Lower| Space|  | Space| Raise| Func | Ctrl | LEAD |
  *                        |      |      |      |      | Raise|  | Lower|      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_COLEMAK] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_F,   KC_P,   KC_B,                                         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
       LCTL_T(KC_TAB),KC_A,KC_R,KC_S,   KC_T,   KC_G,                                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_D,   KC_V,   KC_HOME, KC_DEL,   KC_BSPC,  KC_END,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
-              KC_MEH, KC_LALT, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), KC_TAB,  KC_LEAD, TT(_FUNCTION)
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_D,   KC_V,   KC_HOME, KC_MEH,   KC_HYPR,  KC_END,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+            KC_LALT, KC_LGUI, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), MO(_FUNCTION),   KC_LCTL, KC_LEAD
     ),
 /*
  * Base Layer: Workman
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |    `   |  !   |   "  | # £  |   $  |   %  |                              |   ^  |   &  |   *  |   (  |   )  | Delete |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  [   |   ]  |   {  |   }  |      |                              |      |   _  |   +  |      |      | Insert |
+ * |        |  [   |   ]  |   {  |   }  | Home |                              | End  |   _  |   +  |      |      | Insert |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | CapsLk |      |      |      |      |      |      |      |  |      |      |   \  |   #  |SfLeft|SfDown|ShftUp|SRight  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_LOWER] = LAYOUT(
       KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-      _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,                                     _______, KC_UNDS, KC_PLUS, _______, _______, KC_INS,
+      _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,                                     KC_END,  KC_UNDS, KC_PLUS, _______, _______, KC_INS,
       KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NUBS, KC_NUHS, S(KC_LEFT),S(KC_DOWN),S(KC_UP),S(KC_RGHT),
                                  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______
     ),

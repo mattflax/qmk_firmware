@@ -1,9 +1,9 @@
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
-BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no         # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = no
+#BACKLIGHT_ENABLE = yes        # Enable keyboard backlight functionality
+#RGBLIGHT_ENABLE = yes         # Enable keyboard RGB underglow
+RGB_MATRIX_ENABLE = yes
 
 # if firmware size over limit, try this option
-LTO_ENABLE = no
+LTO_ENABLE = yes
