@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  | Home | Meh  |  | Hyper|  End |   N  |   M  | ,  < | . >  | /  ? |SftEnter|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Alt  | Super| Super| Lower| Space|  | Space| Raise| Func | Ctrl | LEAD |
+ *                        | Ctrl | Alt  | Super| Lower| Space|  | Space| Raise| RAlt | Func | LEAD |
  *                        |      |      |      |      | Raise|  | Lower|      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
       LCTL_T(KC_TAB),KC_A,KC_S,KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
       KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_HOME, KC_MEH,  KC_HYPR,   KC_END,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
-            KC_LALT, KC_LGUI, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), MO(_FUNCTION),   KC_LCTL, KC_LEAD
+            KC_LCTL, KC_LALT, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), KC_RALT, MO(_FUNCTION), KC_LEAD
     ),
 /*
  * Base Layer: Colemak DH
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   D  |   V  | Home | Meh  |  | Hyper|  End |   K  |   H  | ,  < | . >  | /  ? |SftEnter|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Alt  | Super| Super| Lower| Space|  | Space| Raise| Func | Ctrl | LEAD |
+ *                        | Ctrl | Alt  | Super| Lower| Space|  | Space| Raise| RAlt | Func | LEAD |
  *                        |      |      |      |      | Raise|  | Lower|      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,  KC_Q,   KC_W,   KC_F,   KC_P,   KC_B,                                         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
       LCTL_T(KC_TAB),KC_A,KC_R,KC_S,   KC_T,   KC_G,                                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
       KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_D,   KC_V,   KC_HOME, KC_MEH,   KC_HYPR,  KC_END,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
-            KC_LALT, KC_LGUI, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), MO(_FUNCTION),   KC_LCTL, KC_LEAD
+            KC_LCTL, KC_LALT, KC_LGUI, MO(_LOWER), LT(_RAISE, KC_SPC), LT(_LOWER, KC_SPC), MO(_RAISE), KC_RALT, MO(_FUNCTION), KC_LEAD
     ),
 /*
  * Base Layer: Workman
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      RESET,XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_WORKMAN,KC_GAME,                                    _______, _______, _______, _______, _______, KC_KVMSWITCH,
+      QK_BOOT,XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_WORKMAN,KC_GAME,                                    _______, _______, _______, _______, _______, KC_KVMSWITCH,
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -248,7 +248,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // KVM Switch key pressed - send switch sequence
                 // ScrlLock, ScrlLock, Up
-                SEND_STRING(SS_TAP(X_SLCK) SS_TAP(X_SLCK) SS_TAP(X_UP));
+                SEND_STRING(SS_TAP(X_SCRL) SS_TAP(X_SCRL) SS_TAP(X_UP));
             }
             break;
         case KC_WS1:
