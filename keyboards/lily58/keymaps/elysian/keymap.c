@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   !  |   "  | # £  |   $  |   %  |                    |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   [  |   ]  |   {  |   }  | Home |-------.    ,-------|  End |   _  |   +  |      |      |Insert|
+ * |      |   [  |   ]  |   {  |   }  | Home |-------.    ,-------|  End |   _  |   +  | PgDn | PgUp |Insert|
  * |------+------+------+------+------+------| Home  |    |  End  |------+------+------+------+------+------|
  * |CapsLk|   \  |      |      |      |      |-------|    |-------|   \  |   #  |SfLeft|SfDown|ShftUp|SRight|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT( \
   KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL,\
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
-  _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,                   KC_END,  KC_UNDS, KC_PLUS, _______, _______, KC_INS, \
+  _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,                   KC_END,  KC_UNDS, KC_PLUS, KC_PGDN, KC_PGUP, KC_INS, \
   KC_CAPS, KC_NUBS, _______, _______, _______, _______, KC_HOME, KC_END,  KC_NUBS, KC_NUHS, S(KC_LEFT),S(KC_DOWN),S(KC_UP),S(KC_RGHT), \
                              _______, _______, _______, KC_HOME, KC_END,  _______,  _______, _______\
 ),
@@ -194,9 +194,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master())
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  return rotation;
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    } else {
+        return OLED_ROTATION_180;
+    }
 }
 
 // When you add source files to SRC in rules.mk, you can use functions.
@@ -204,52 +206,67 @@ const char *read_logo(void);
 const char *read_rgb_info(void);
 const char *read_rgb_mode(void);
 
+static void print_status_narrow(void) {
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_ln_P(PSTR("Qwrt"), false);
+            break;
+        case _COLEMAK:
+            oled_write_ln_P(PSTR("Clmk"), false);
+            break;
+        case _WORKMAN:
+            oled_write_P(PSTR("Wrkmn"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undef"), false);
+    }
+    oled_write_P(PSTR("\n\n"), false);
+    // Print current layer
+    oled_write_ln_P(PSTR("LAYER"), false);
+    switch (get_highest_layer(layer_state)) {
+        case _COLEMAK:
+        case _QWERTY:
+            oled_write_P(PSTR("Base\n"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Raise"), false);  // No return at end of line
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Lower"), false);  // No return at end of line
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adj\n"), false);
+            break;
+        case _FUNCTION:
+            oled_write_P(PSTR("Func\n"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Undef"), false);
+    }
+    oled_write_P(PSTR("\n"), false);
+
+    // Modifiers
+    uint8_t mod_state = get_mods();
+    oled_write_ln_P(PSTR("Sup"), (mod_state & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI));
+    oled_write_ln_P(PSTR("Alt"), (mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT));
+    oled_write_ln_P(PSTR("Ctrl"), (mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL));
+    oled_write_ln_P(PSTR("Shft"), (mod_state & MOD_MASK_SHIFT));
+    oled_write_ln_P(PSTR("\n"), false);
+
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+}
+
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-      case _WORKMAN:
-      case _QWERTY:
-      case _COLEMAK:
-        oled_write_ln_P(PSTR("Base"), false);
-        break;
-      case _RAISE:
-        oled_write_ln_P(PSTR("Raise"), false);  // No return at end of line
-        break;
-      case _LOWER:
-        oled_write_ln_P(PSTR("Lower"), false);  // No return at end of line
-        break;
-      case _ADJUST:
-        oled_write_ln_P(PSTR("Adj"), false);
-        break;
-      case _FUNCTION:
-        oled_write_ln_P(PSTR("Func"), false);
-        break;
-      default:
-        oled_write_ln_P(PSTR("Undef"), false);
-    }
-
-    oled_write_ln(read_rgb_info(), false);
-    oled_write_ln(read_rgb_mode(), false);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write("CPSLK", led_usb_state.caps_lock);
-    oled_write("    ", false);
-    switch (get_highest_layer(default_layer_state)) {
-      case _WORKMAN:
-        oled_write_ln("Workman", false);
-        break;
-      case _QWERTY:
-        oled_write_ln("Qwerty", false);
-        break;
-      case _COLEMAK:
-        oled_write_ln("Colemak", false);
-        break;
-      default:
-        oled_write_ln("Undef", false);
-    }
+    print_status_narrow();
   } else {
-    oled_write(read_logo(), false);
+    if (get_highest_layer(layer_state) == _ADJUST) {
+        oled_write_ln(read_rgb_info(), false);
+        oled_write_ln(read_rgb_mode(), false);
+    } else {
+        oled_write(read_logo(), false);
+    }
   }
 
   return true;

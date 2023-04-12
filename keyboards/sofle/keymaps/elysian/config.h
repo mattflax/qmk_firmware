@@ -7,7 +7,11 @@ for more options.
 
 // #define USE_I2C
 
-#define TAPPING_TERM 200
+/* Select hand configuration */
+#define MASTER_LEFT
 
+#define TAPPING_TERM 200
 #define TAPPING_TOGGLE 2
+
+#define OLED_DRIVER_ENABLE
 
