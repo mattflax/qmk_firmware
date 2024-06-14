@@ -27,7 +27,6 @@ enum LAYERS {
     _LOWER,
     _RAISE,
     _FUNCTION,
-    _NAV,
     _ADJUST,
 };
 
@@ -36,7 +35,6 @@ enum custom_keycodes {
     KC_GAME,
     KC_COLEMAK,
     KC_WORKMAN,
-    KC_NAV,
     KC_KVMSWITCH,
     KC_WS1, KC_WS2, KC_WS3, KC_WS4, KC_WS5, KC_WS6, KC_WS7, KC_WS8, KC_WS9, KC_WS10
 };
@@ -118,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LShift |   Z  |   X  |   M  |   C  |   V  |  |   K  |   L  | ,  < | . >  | /  ? |SftEnter|
  * `----------------------+------+------+------|  |------+------+------+------+------+--------'
  *                        | Super| Lower| Space|  | Space| Raise| Fn   |
- *                        | Raise|      |  Alt |  |      |      |      |
+ *                        |      |      |  Alt |  |      |      |      |
  *                        `--------------------'  `--------------------'
  */
   [_WORKMAN] = LAYOUT_split_3x6_3(
@@ -138,15 +136,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
  * | CapsLk |      |      |      |      |      |  |   \  |   #  |SfLeft|SfDown|ShftUp| SRight |
  * `----------------------+------+------+------|  |------+------+------+------+------+--------'
- *                        |  Nav | Lower| Space|  | Space| Raise|      |
+ *                        |Super | Lower| Space|  | Space| Raise|      |
  *                        |      |      |  Alt |  |      |      |      |
  *                        `--------------------'  `--------------------'
  */
   [_LOWER] = LAYOUT_split_3x6_3(
     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-    OSL(_NAV),KC_LBRC,KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,    KC_END,  KC_UNDS, KC_PLUS, KC_PGDN, KC_PGUP, KC_INS,
+    KC_TAB, KC_LBRC,KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,    KC_END,  KC_UNDS, KC_PLUS, KC_PGDN, KC_PGUP, KC_INS,
     KC_CAPS, _______, _______, _______, _______, _______,    KC_NUBS, KC_NUHS, S(KC_LEFT),S(KC_DOWN),S(KC_UP),S(KC_RGHT),
-                              MO(_NAV), _______, _______,    _______, _______, _______
+                               _______, _______, _______,    _______, _______, _______
   ),
 
 /*
@@ -168,27 +166,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_WS1,  KC_WS2,  KC_WS3,  KC_WS4,  KC_WS5,     _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_INS,
     KC_CAPS, KC_WS6,  KC_WS7,  KC_WS8,  KC_WS9,  KC_WS10,    S(KC_NUBS),S(KC_NUHS),KC_LEFT,KC_DOWN,KC_UP, KC_RGHT,
                                _______, _______, KC_LCTL,    _______,  _______, _______
-  ),
-
-/*
- * Nav - i3 navigation
- *
- * ,-------------------------------------------.  ,-------------------------------------------.
- * |        |      |      |      |      |      |  |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * |        | WS1  | WS2  | WS2  | WS4  | WS5  |  |      |      |      |      |      |        |
- * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
- * |        | WS6  | WS7  | WS8  | WS9  | WS10 |  |      |      |      |      |      |        |
- * `----------------------+------+------+------|  |------+------+------+------+------+--------'
- *                        |      |      |      |  |      |      |      |
- *                        |      |      |      |  |      |      |      |
- *                        `--------------------'  `--------------------'
- */
-  [_NAV] = LAYOUT_split_3x6_3(
-    _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,
-    _______, KC_WS1,  KC_WS2,  KC_WS3,  KC_WS4,  KC_WS5,     _______, _______, _______, _______, _______, _______,
-    _______, KC_WS6,  KC_WS7,  KC_WS8,  KC_WS9,  KC_WS10,    _______, _______, _______, _______, _______, _______,
-                               _______, _______, _______,    _______, _______, _______
   ),
 
 /*
@@ -265,11 +242,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // KVM Switch key pressed - send switch sequence
                 // ScrlLock, ScrlLock, Up
                 SEND_STRING(SS_TAP(X_SCRL) SS_TAP(X_SCRL) SS_TAP(X_PGUP));
-            }
-            break;
-        case KC_NAV:
-            if (record->event.pressed) {
-                layer_invert(_NAV);
             }
             break;
         case KC_WS1:
@@ -355,9 +327,6 @@ static void print_status_narrow(void) {
         case _COLEMAK:
         case _QWERTY:
             oled_write_P(PSTR("Base\n"), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR("Nav\n"), false);  // No return at end of line
             break;
         case _RAISE:
             oled_write_P(PSTR("Raise"), false);  // No return at end of line
