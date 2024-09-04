@@ -46,4 +46,5 @@
 #define ENCODER_RESOLUTIONS { 4, 2 }
 
 // Tapping term
-#define TAPPING_TERM 200
+#define TAPPING_TERM 220
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
