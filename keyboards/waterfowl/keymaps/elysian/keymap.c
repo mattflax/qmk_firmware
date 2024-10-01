@@ -67,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT(
 	KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,           KC_Y,       KC_U,    KC_I,      KC_O,       KC_P,
-	KC_A,       KC_S,	    KC_D,       KC_F,	    KC_G,		    KC_H,       KC_J,	 KC_K,      KC_L,	    KC_SCLN,
-	LSFT_T(KC_Z),LCTL_T(KC_X),LGUI_T(KC_C),LALT_T(KC_V),KC_B,       KC_N, LALT_T(KC_M), LGUI_T(KC_COMM),LCTL_T(KC_DOT),RSFT_T(KC_SLSH),
+	LALT_T(KC_A),LGUI_T(KC_S),LCTL_T(KC_D),LSFT_T(KC_F),KC_G,		KC_H,RSFT_T(KC_J),LCTL_T(KC_K),LGUI_T(KC_L),LALT(KC_SCLN),
+	KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,           KC_N,       KC_M,   KC_COMM,    KC_DOT,     KC_SLSH,
 	KC_1,  LT(_MOUSE,KC_ESC), LT(_NAV,KC_SPC), LT(_MEDIA,KC_TAB), KC_CAPS,		KC_NUM,	LT(_SYM,KC_ENT), LT(_NUM,KC_BSPC), LT(_FUNC,KC_DEL),	KC_4
 ),
 
