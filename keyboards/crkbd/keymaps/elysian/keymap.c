@@ -39,6 +39,19 @@ enum custom_keycodes {
     KC_WS1, KC_WS2, KC_WS3, KC_WS4, KC_WS5, KC_WS6, KC_WS7, KC_WS8, KC_WS9, KC_WS10
 };
 
+// Tap dance definitions
+enum {
+    TD_BRCK,
+    TD_CRLB,
+    TD_SQBR
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_BRCK] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),
+    [TD_CRLB] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
+    [TD_SQBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC)
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Base Layer: QWERTY
@@ -132,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.  ,-------------------------------------------.
  * |    `   |  !   |   "  | # £  |   $  |   %  |  |   ^  |   &  |   *  |   (  |   )  | Delete |
  * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * |Nav Mode|  [   |   ]  |   {  |   }  | Home |  |  End |   _  |   +  | PgDn | PgUp | Insert |
+ * |Nav Mode|      |      | [  ] | {  } | Home |  |  End |   _  |   +  | PgDn | PgUp | Insert |
  * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
  * | CapsLk |      |      |      |      |      |  |   \  |   #  |SfLeft|SfDown|ShftUp| SRight |
  * `----------------------+------+------+------|  |------+------+------+------+------+--------'
@@ -142,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_LOWER] = LAYOUT_split_3x6_3(
     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-    KC_TAB, KC_LBRC,KC_RBRC, KC_LCBR, KC_RCBR, KC_HOME,    KC_END,  KC_UNDS, KC_PLUS, KC_PGDN, KC_PGUP, KC_INS,
+    KC_TAB,_______,_______,TD(TD_SQBR),TD(TD_CRLB),KC_HOME,    KC_END,  KC_UNDS, KC_PLUS, KC_PGDN, KC_PGUP, KC_INS,
     KC_CAPS, _______, _______, _______, _______, _______,    KC_NUBS, KC_NUHS, S(KC_LEFT),S(KC_DOWN),S(KC_UP),S(KC_RGHT),
                                _______, _______, _______,    _______, _______, _______
   ),
