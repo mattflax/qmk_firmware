@@ -27,3 +27,5 @@ SPLIT_KEYBOARD = yes     # Enables split functionality
 ENCODER_ENABLE = yes	 # Enables the encoders
 
 LTO_ENABLE = yes
+
+SRC += ./keymaps/elysian/features/achordion.c

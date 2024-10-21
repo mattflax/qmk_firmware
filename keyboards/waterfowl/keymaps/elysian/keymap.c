@@ -15,6 +15,7 @@
 */
 
 #include QMK_KEYBOARD_H
+#include "features/achordion.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -259,6 +260,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) { return false; }
+
     switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -279,6 +282,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
     return true;
+}
+
+void matrix_scan_user(void) {
+    achordion_task();
 }
 
 #ifdef OLED_ENABLE
