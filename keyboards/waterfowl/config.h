@@ -19,14 +19,3 @@
 #define OLED_DISPLAY_128X64
 
 #define SPLIT_USB_DETECT
-
-// Encoders
-/*
-#define ENCODERS_PAD_A { B4, B3 }
-#define ENCODERS_PAD_B { B5, B2 }
-#define ENCODER_RESOLUTIONS { 4, 2 }
-*/
-
-// Tapping term
-#define TAPPING_TERM 220
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

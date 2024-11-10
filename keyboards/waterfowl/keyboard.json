@@ -8,13 +8,25 @@
         "pid": "0x9CE3",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "oled": true
+        "oled": true,
+        "tap_dance": true,
+        "dynamic_tapping_term": true,
+        "caps_word": true
+    },
+    "caps_word": {
+        "both_shifts_turns_on": true
+    },
+    "tapping": {
+        "term": 220
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1"],
@@ -40,7 +52,7 @@
         }
     },
     "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
