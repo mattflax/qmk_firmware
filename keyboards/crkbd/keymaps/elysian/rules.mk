@@ -1,8 +1,8 @@
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+#OLED_DRIVER = SSD1306
 
 #BACKLIGHT_ENABLE = yes        # Enable keyboard backlight functionality
-#RGBLIGHT_ENABLE = yes         # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no         # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
