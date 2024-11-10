@@ -34,7 +34,7 @@
 #endif
 
 #if defined(SPLIT_POINTING_ENABLE)
-#    include "transactions.h"
+#    include "split_common/transactions.h"
 #    include "keyboard.h"
 
 report_mouse_t shared_mouse_report = {};
