@@ -22,7 +22,7 @@ DYNAMIC_TAPPING_TERM_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 
 OLED_ENABLE = yes        # Enables the use of OLED displays
-OLED_DRIVER = SSD1306    # Specifies the type of OLED
+#OLED_DRIVER = SSD1306    # Specifies the type of OLED
 SPLIT_KEYBOARD = yes     # Enables split functionality
 ENCODER_ENABLE = yes	 # Enables the encoders
 
