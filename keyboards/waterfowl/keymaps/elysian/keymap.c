@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|                      |------+------+------+------+------|
  * |Shift |   A  |   S  |   D  |   F  |                      |      |  J   |  K   |  L   |      |
  * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
- * | Ctrl |   Z  |   X  |   C  |   V  |  |  2  |    |  3  |  |      |      |      |      |      |
+ * | Ctrl |   Z  |   X  |   C  |   V  |  |  2  |    |  3  |  |      | Left | Down |  Up  | Right|
  * `----------------------------------'  `-----'    `-----'  `----------------------------------'
  *          ,-----.   ,--------------------.            ,--------------------.   ,-----.
  *          |  1  |   |  T  | SPACE | TAB  |            | Enter | BS | ENTER |   |Qwrty|
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_GAME] = LAYOUT(
     KC_ESC,     KC_Q,       KC_W,       KC_E,       KC_R,           KC_NO,      KC_NO,    KC_I,     KC_NO,      KC_NO,
     KC_LSFT,    KC_A,       KC_S,       KC_D,       KC_F,           KC_NO,      KC_J,     KC_K,     KC_L,       KC_NO,
-    KC_LCTL,    KC_Z,       KC_X,       KC_C,       KC_V,           KC_NO,      KC_NO,    KC_NO,    KC_NO,      KC_NO,
+    KC_LCTL,    KC_Z,       KC_X,       KC_C,       KC_V,           KC_NO,      KC_LEFT,  KC_DOWN,  KC_UP,      KC_RGHT,
     KC_1,     KC_T, KC_SPC, KC_TAB, KC_2,         KC_3, KC_ENT, KC_BSPC, KC_ENT, KC_QWERTY
 ),
 
