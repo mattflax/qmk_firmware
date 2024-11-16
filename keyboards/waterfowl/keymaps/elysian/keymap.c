@@ -375,3 +375,25 @@ bool oled_task_user(void) {
     return true;
 }
 #endif
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    switch (index) {
+        case 0:  // Left roller
+        case 1:  // Left encoder
+        case 2:  // Right roller
+            // No function, carry on with parent function
+            break;
+        case 3:  // Right encoder
+            // Wired backwards?
+            if (clockwise) {
+                tap_code(KC_VOLD);
+            } else {
+                tap_code(KC_VOLU);
+            }
+            return false;
+    }
+
+    return true;
+}
+#endif
