@@ -41,13 +41,15 @@ enum custom_keycodes {
 enum {
     TD_BRCK,
     TD_CRLB,
-    TD_SQBR
+    TD_SQBR,
+    TD_SLSH
 };
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_BRCK] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),
     [TD_CRLB] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
-    [TD_SQBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC)
+    [TD_SQBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
+    [TD_SLSH] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUOT)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|                      |------+------+------+------+------|
  * |   A  |   S  |   D  |   F  |   G  |                      |   H  |   J  |   K  |   L  |   ;  |
  * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |  |CAPS |    |NUMLK|  |   N  |   M  |   ,  |   .  |   /  |
+ * |   Z  |   X  |   C  |   V  |   B  |  |CAPS |    |NUMLK|  |   N  |   M  |   ,  |   .  | /  ' |
  * `----------------------------------'  `-----'    `-----'  `----------------------------------'
  *          ,-----.   ,--------------------.            ,---------------------.   ,-----.
  *          |  1  |   | Esc | SPACE | TAB  |            | Enter | BS  |  Del  |   |  4  |
@@ -69,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
 	KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,           KC_Y,       KC_U,    KC_I,      KC_O,       KC_P,
 	LALT_T(KC_A),LGUI_T(KC_S),LCTL_T(KC_D),LSFT_T(KC_F),KC_G,		KC_H,RSFT_T(KC_J),LCTL_T(KC_K),LGUI_T(KC_L),LALT_T(KC_SCLN),
-	KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,           KC_N,       KC_M,   KC_COMM,    KC_DOT,     KC_SLSH,
+	KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,           KC_N,       KC_M,   KC_COMM,    KC_DOT,     TD(TD_SLSH),
 	KC_1,  LT(_MOUSE,KC_ESC), LT(_NAV,KC_SPC), LT(_MEDIA,KC_TAB), KC_CAPS,		KC_NUM,	LT(_SYM,KC_ENT), LT(_NUM,KC_BSPC), LT(_FUNC,KC_DEL),	KC_4
 ),
 
@@ -89,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAKDH] = LAYOUT(
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
   KC_A,    MT(MOD_LALT, KC_R),    MT(MOD_LCTL, KC_S),    MT(MOD_LSFT, KC_T),    KC_G,         KC_M,    MT(MOD_RSFT, KC_N),    MT(MOD_LCTL, KC_E),    MT(MOD_LALT, KC_I),    KC_O,
-  KC_Z,    KC_X,    KC_C,    MT(MOD_LGUI, KC_D),    KC_V,         KC_K,    MT(MOD_LGUI, KC_H),    KC_COMM, KC_DOT,  KC_SLSH,
+  KC_Z,    KC_X,    KC_C,    MT(MOD_LGUI, KC_D),    KC_V,         KC_K,    MT(MOD_LGUI, KC_H),    KC_COMM, KC_DOT,  TD(TD_SLSH),
 	KC_1,  LT(_MOUSE,KC_ESC), LT(_NAV,KC_SPC), LT(_MEDIA,KC_TAB), KC_CAPS,		KC_NUM,	LT(_SYM,KC_ENT), LT(_NUM,KC_BSPC), LT(_FUNC,KC_DEL),	KC_4
 ),
 
