@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = splitkb/kyria/rev3
+DEFAULT_FOLDER = splitkb/kyria/rev1
