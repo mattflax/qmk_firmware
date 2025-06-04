@@ -48,14 +48,20 @@ enum {
 
 };
 
-void query_all(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        SEND_STRING("*");
-    }
-    else if (state->count == 3) {
-        SEND_STRING("*:*");
-    } else if (state->count >= 4) {
-        SEND_STRING("[* TO *]");
+void asterisk_search(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            SEND_STRING("*");
+            break;
+        case 2:
+            SEND_STRING("**");
+            break;
+        case 3:
+            SEND_STRING("*:*");
+            break;
+        case 4:
+            SEND_STRING("[* TO *]");
+            break;
     }
     reset_tap_dance(state);
 }
@@ -64,7 +70,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BRCK] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),
     [TD_CRLB] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
     [TD_SQBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
-    [TD_ASTR] = ACTION_TAP_DANCE_FN(query_all)
+    [TD_ASTR] = ACTION_TAP_DANCE_FN(asterisk_search)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
