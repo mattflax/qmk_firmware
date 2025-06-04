@@ -13,5 +13,3 @@ CAPS_WORD_ENABLE = yes
 
 # if firmware size over limit, try this option
 LTO_ENABLE = yes
-
-SRC += ./features/achordion.c
