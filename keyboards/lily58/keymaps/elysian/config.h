@@ -41,7 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DRIVER_ENABLE
 
 #undef RGBLED_NUM
+#undef RGBLIGHT_LED_COUNT
 #define RGBLED_NUM 8
+#define RGBLIGHT_LED_COUNT RGBLED_NUM
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 4, 4 }
 #define RGBLIGHT_LIMIT_VAL 120

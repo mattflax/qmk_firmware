@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, KC_SLSH, KC_7,	KC_8,	KC_9,	KC_PLUS,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, KC_QUOT,	KC_4,	KC_5,	KC_6,	KC_MINS,                   XXXXXXX,	KC_RSFT, KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, \
   XXXXXXX, S(KC_NUBS),KC_1,	KC_2,	KC_3,   KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-               KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, _______, L_FNDEL, MO(_FUNC) \
+                           KC_LALT, KC_0,   KC_DOT,  KC_TAB,  KC_ENT,  _______, L_FNDEL, MO(_FUNC) \
 ),
 
 /* SYM
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |      |  \ | |   !  |   "  |   £  | # ~  |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |LAlt  |  0   |  .   | / Tab   /       \Enter \  |      |Delete|  FN  |
+ *                   |LAlt  | Del  | Space| / Tab   /       \Enter \  |      |Delete|  FN  |
  *                   |      |      |      |/ Media /         \ Sym  \ | Num  |  Fn  |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -195,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, KC_GRV,  KC_AMPR,TD(TD_ASTR),TD(TD_BRCK),TD(TD_SQBR),       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, S(KC_QUOT),KC_DLR,KC_PERC,KC_CIRC,TD(TD_CRLB),              XXXXXXX,	KC_RSFT, KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, \
   XXXXXXX, KC_NUBS,	KC_EXLM, KC_AT, KC_HASH,KC_NUHS, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-                            KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, _______, L_NUMBS, L_FNDEL, MO(_FUNC) \
+                            KC_LALT, KC_DEL, KC_SPC, KC_TAB,  _______, L_NUMBS, L_FNDEL, MO(_FUNC) \
 ),
 
 /* FUNC
@@ -349,16 +349,16 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Base\n"), false);
             break;
         case _NUM:
-            oled_write_P(PSTR("Num"), false);  // No return at end of line
+            oled_write_ln_P(PSTR("Num"), false);  // No return at end of line
             break;
         case _SYM:
-            oled_write_P(PSTR("Sym"), false);  // No return at end of line
+            oled_write_ln_P(PSTR("Sym"), false);  // No return at end of line
             break;
         case _FUNC:
-            oled_write_P(PSTR("Func"), false);  // No return at end of line
+            oled_write_ln_P(PSTR("Func"), false);  // No return at end of line
             break;
         case _NAV:
-            oled_write_P(PSTR("Nav"), false);  // No return at end of line
+            oled_write_ln_P(PSTR("Nav"), false);  // No return at end of line
             break;
         case _MEDIA:
             oled_write_P(PSTR("Media"), false);  // No return at end of line
@@ -367,10 +367,10 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Mouse"), false);  // No return at end of line
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adj\n"), false);
+            oled_write_ln_P(PSTR("Adj"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_P(PSTR("Undef"), false);
     }
     oled_write_P(PSTR("\n"), false);
 
