@@ -42,14 +42,33 @@ enum {
     TD_BRCK,
     TD_CRLB,
     TD_SQBR,
-    TD_SLSH
+    TD_ASTR
 };
+
+void asterisk_search(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            SEND_STRING("*");
+            break;
+        case 2:
+            SEND_STRING("**");
+            break;
+        case 3:
+            SEND_STRING("*:*");
+            break;
+        case 4:
+            SEND_STRING("[* TO *]");
+            break;
+    }
+    reset_tap_dance(state);
+}
+
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_BRCK] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_RPRN),
     [TD_CRLB] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
     [TD_SQBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
-    [TD_SLSH] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUOT)
+    [TD_ASTR] = ACTION_TAP_DANCE_FN(asterisk_search)
 };
 
 
@@ -169,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
-      XXXXXXX, KC_GRV,  KC_AMPR, KC_ASTR, TD(TD_BRCK),TD(TD_SQBR),                                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_GRV,  KC_AMPR,TD(TD_ASTR),TD(TD_BRCK),TD(TD_SQBR),                                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       _______, S(KC_QUOT), KC_DLR,KC_PERC,KC_CIRC, TD(TD_CRLB),                                      XXXXXXX, KC_RSFT, KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX,
       _______, KC_NUBS,	KC_EXLM, KC_AT,   KC_HASH, KC_NUHS, _______, _______,      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                  _______, _______, _______,  KC_SPC,  KC_TAB,      _______, _______, _______, _______, _______
@@ -230,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_NAV] = LAYOUT(
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                           KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, _______,
-    _______, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, XXXXXXX,                                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, KC_PSCR,
+    _______, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, XXXXXXX,                                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,  KC_PSCR,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                _______, _______, _______,  KC_SPC,  KC_TAB ,      KC_ENT,  KC_BSPC, KC_DEL,  _______, _______
   ),
@@ -240,9 +259,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      !      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | Alt  | Super| Ctrl |LShift|      |                              |      | Vol- | Vol+ |      |      |        |
+ * |        | Alt  | Super| Ctrl |LShift|      |                              | Prev | Vol- | Vol+ | Next |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      | Pause| Prev | VolUp| VolDn| Next |        |
+ * |        |      |      |      |      |      |      |      |  |      |      | Pause|      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  | Right| Left | Mid  |      |      |
  *                        |      |      |      |      |      |  |  Btn |  Btn | Btn  |      |      |
@@ -250,8 +269,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_MEDIA] = LAYOUT(
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    _______, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, XXXXXXX,                                           XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,      _______, _______, KC_MPLY, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX,
+    _______, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, XXXXXXX,                                           KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,      _______, _______, KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                _______, _______, _______,  KC_SPC,  KC_TAB ,      KC_ENT,  KC_BSPC, KC_DEL,  _______, _______
   ),
 /*

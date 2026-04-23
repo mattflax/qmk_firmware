@@ -249,9 +249,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.                      ,----------------------------------.
  * |      |      |      |      |      |                      |      |      |      |      |      |
  * |------+------+------+------+------|                      |------+------+------+------+------|
- * | Alt  | Super| Ctrl |LShift|      |                      |      | VolDn| VolUp|      |      |
+ * | Alt  | Super| Ctrl |LShift|      |                      | Prev | VolDn| VolUp| Next |      |
  * |------+------+------+------+------|  ,-----.    ,-----.  |------+------+------+------+------|
- * |      |      |      |      |      |  |CAPS |    |NUMLK|  | Pause| Prev | VolUp| VolDn| Next |
+ * |      |      |      |      |      |  |CAPS |    |NUMLK|  | Pause|      |      |      |      |
  * `----------------------------------'  `-----'    `-----'  `----------------------------------'
  *          ,-----.   ,--------------------.            ,--------------------.   ,-----.
  *          |  1  |   |     |       |MEDIA |            | Enter | BS |  Del  |   |  4  |
@@ -259,8 +259,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MEDIA] =  LAYOUT(
 	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,			XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,
-	KC_LALT,	KC_LGUI,	KC_LCTL,	KC_LSFT,    XXXXXXX,		    XXXXXXX,	KC_VOLD,	KC_VOLU,	XXXXXXX,	XXXXXXX,
-	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,			KC_MPLY,	KC_MPRV,    KC_VOLD,    KC_VOLU,    KC_MNXT,
+	KC_LALT,	KC_LGUI,	KC_LCTL,	KC_LSFT,    XXXXXXX,		    KC_MPRV,	KC_VOLD,	KC_VOLU,	KC_MNXT,	XXXXXXX,
+	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,	XXXXXXX,			KC_MPLY,	XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
 	_______,    _______,	_______,	_______,	_______,		    _______,	KC_ENT,	    KC_BSPC,	KC_DEL,	    _______
 ),
 
