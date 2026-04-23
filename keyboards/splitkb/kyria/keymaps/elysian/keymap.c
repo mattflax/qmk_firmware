@@ -228,10 +228,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
  [_MOUSE] = LAYOUT(
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                           KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX, _______,
-    _______, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, XXXXXXX,                                           KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, KC_PSCR,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                           MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, XXXXXXX, _______,
+    _______, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, XXXXXXX,                                           MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX, KC_PSCR,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,      _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
-                               _______, _______, _______,  KC_SPC,  KC_TAB ,      KC_BTN2, KC_BTN1, _______, KC_BTN3, _______
+                               _______, _______, _______,  KC_SPC,  KC_TAB ,      MS_BTN2, MS_BTN1, _______, MS_BTN3, _______
   ),
 /*
  * Navigation layer
