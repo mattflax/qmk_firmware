@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX, \
     KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    XXXXXXX, \
-    XXXXXXX, HM__A,  HM_S,    HM_D,    HM_F,    KC_G,                      KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT, \
-    KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT, \
+    XXXXXXX, HM_A,   HM_S,    HM_D,    HM_F,    KC_G,                      KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT, \
+    KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT, \
                      KC_LCTL, KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, KC_RCTL, KC_RALT \
   ),
 
@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GAME] = LAYOUT(
   KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  XXXXXXX, HM__A,  HM_S,    HM_D,    HM_F,    KC_G,                      KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT, \
-                   KC_LCTL, KC_LALT, L_MSESC, L_NVESC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, KC_RCTL, KC_RALT \
+  XXXXXXX, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT, \
+  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT, \
+                   KC_LCTL, KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, KC_RCTL, KC_RALT \
   ),
 
 /*
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_B,                      KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC, \
   LCTL_T(KC_TAB),   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,             KC_M,    KC_N,    KC_E,    KC_I,    KC_O,  KC_QUOT, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_D,    KC_V, KC_MUTE,     KC_HOME,KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT, \
-            KC_LCTL, KC_LALT, KC_LGUI,KC_LOWER,LALT_T(KC_SPC),    KC_SPC, KC_RAISE,KC_RCTL, MO(_FUNCTION), KC_RALT \
+            KC_LCTL, KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, MO(_FUNC), KC_RALT \
   ),
 
 /*
@@ -282,24 +282,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Adjust Layer: Layouts, KVM
  *
- * ,-------------------------------------------.  ,-------------------------------------------.
- * |   ESC  |   1  |   2  |   3  |   4  |   5  |  |   6  |   7  |   8  |   9  |   0  |   Bksp |
- * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * |  RESET |      |Qwerty|Colemk|      | Game |  |      |      |      |      |      | KVMSw  |
- * |--------+------+------+------+------+------|  |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |  |RGB On| Mode+| Hue+ | Sat+ | Val+ |        |
- * |--------+------+------+------+------+------.  ,-------------+------+------+------+--------|
- * |        |      |      |      |      |      |  |      | Mode-| Hue- | Sat- | Val- |        |
- * `----------------------+------+------+------|  |------+------+------+------+------+--------'
- *                        | Super| Lower| Space|  | Space| Raise| Tab  |
- *                        |      |      | Raise|  | Lower|      |      |
- *                        `--------------------'  `--------------------'
+*
+ * ,-----------------------------------------.                    ,-------------------------------------------.
+ * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |   Bksp |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+--------|
+ * |RESET |      |Qwerty|Colemk|      | Game |                    |      |      |      |      |      |        |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+--------|
+ * |RGB On| Mode+| Hue+ | Sat+ | Val+ |      |-------.    ,-------| Prev | VolUp| VolDn| Next |      |        |
+ * |------+------+------+------+------+------|       |    | MUTE  |------+------+------+------+------+--------|
+ * |      | Mode-| Hue- | Sat- | Val- |      |      |-------.    ,-------| Pause|      |      |      |      |        |
+ * `-----------------------------------------/       /     \      \-------------------------------------------'
+ *            |LCtrl | LAlt |Mouse |      | /       /       \      \  |      |      |      |      |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '-----------------------------------'
  */
 [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-    RM_NEXT, RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+    RM_TOGG, RM_NEXT, RM_HUEU, RM_SATU, RM_VALU, XXXXXXX,                   XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+    XXXXXXX, RM_PREV, RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
@@ -309,8 +310,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) { return false; }
-
     switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -334,45 +333,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void matrix_scan_user(void) {
-    achordion_task();
-}
-
-
-
-
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,   KC_0,    KC_GRV,
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC,
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,        KC_MPLY, KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-                      KC_LGUI, KC_LALT, KC_LCTL, MO(1),   KC_ENT,         KC_SPC,  MO(2),   KC_RCTL, KC_RALT, KC_RGUI
-  ),
-  [1] = LAYOUT(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                            KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
-    _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
-    _______, KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,        _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, _______,
-                      _______, _______, _______, _______, _______,        _______, MO(3),   _______, _______, _______
-  ),
-  [2] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______ ,_______,
-    _______, KC_INS,  KC_PSCR, KC_APP,  XXXXXXX, XXXXXXX,                          KC_PGUP, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, KC_BSPC,
-    _______, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, KC_CAPS,                          KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  XXXXXXX,
-    _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), XXXXXXX, _______,        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                      _______, _______, _______, MO(3),   _______,        _______, _______, _______, _______, _______
-  ),
-    [3] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX ,XXXXXXX, XXXXXXX, XXXXXXX,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, XXXXXXX, XXXXXXX,                          XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-    RM_NEXT, RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-                      _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
-  )
-};
-
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT)},
@@ -381,4 +341,29 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS)}
 };
 #endif
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    switch (index) {
+        case 0:  // Left encoder
+            // No function, carry on with parent function
+            if (clockwise) {
+                tap_code(KC_PGUP);
+            } else {
+                tap_code(KC_PGDN);
+            }
+            break;
+        case 1:  // Right encoder
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            return false;
+    }
+
+    return true;
+}
+#endif
+
 // clang-format on
