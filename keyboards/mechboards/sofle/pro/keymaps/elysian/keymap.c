@@ -19,9 +19,9 @@ enum LAYERS {
 };
 
 enum custom_keycodes {
-    KC_QWERTY = SAFE_RANGE,
+    KC_QWRT = SAFE_RANGE,
     KC_GAME,
-    KC_COLEMAK
+    KC_CLMK
 };
 
 // Tap dance definitions
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Esc  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------|  MUTE |    | HOME  |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|  HOME |    | MUTE  |------+------+------+------+------+------|
  * |Sft/CL|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |SftEnt|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |LCtrl | LAlt | Esc  | Space| /  Tab  /       \Enter \  |BkSpc | Del  | Rctl | RAlt |
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX, \
     KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    XXXXXXX, \
     XXXXXXX, HM_A,   HM_S,    HM_D,    HM_F,    KC_G,                      KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT, \
-    KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT, \
-                     KC_LCTL, KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, KC_RCTL, KC_RALT \
+    KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME, KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT, \
+                     KC_LALT, KC_LCTL, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, KC_RCTL, KC_RALT \
   ),
 
 /*
@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GAME] = LAYOUT(
   KC_GRV,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  XXXXXXX, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    HM_J,    HM_K,    HM_L,    HM_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT, \
-                   KC_LCTL, KC_LALT, L_MSESC, L_NVSPC, L_MEDTB, L_SYMEN, L_NUMBS, L_FNDEL, KC_RCTL, KC_RALT \
+  KC_LSFT, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LCTL, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_HOME, KC_MUTE, KC_N,    KC_M,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
+                   KC_LCTL, KC_LALT, L_MSESC, KC_SPC,  KC_TAB,  KC_ENT,  KC_BSPC, L_FNDEL, KC_RCTL, KC_RALT \
   ),
 
 /*
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_SYM] = LAYOUT(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-    XXXXXXX, KC_GRV,  KC_AMPR, KC_ASTR, TD(TD_ASTR),TD(TD_SQBR),            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, KC_GRV,  KC_AMPR, TD(TD_ASTR),TD(TD_BRCK),TD(TD_SQBR),         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     XXXXXXX, S(KC_QUOT),KC_DLR,KC_PERC, KC_CIRC, TD(TD_CRLB),               XXXXXXX, KC_RSFT, KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, \
     XXXXXXX, KC_NUBS, KC_EXLM, KC_AT,   KC_HASH, KC_NUHS, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
                       _______, _______, KC_DEL,  KC_SPC,  KC_TAB,  _______, _______, _______, _______, _______
@@ -298,7 +298,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-    QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    QK_BOOT, XXXXXXX, KC_QWRT, XXXXXXX, XXXXXXX, KC_GAME,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     RM_TOGG, RM_NEXT, RM_HUEU, RM_SATU, RM_VALU, XXXXXXX,                   XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
     XXXXXXX, RM_PREV, RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -311,7 +311,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_QWERTY:
+        case KC_QWRT:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
             }
@@ -321,7 +321,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_GAME);
             }
             return false;
-         case KC_COLEMAK:
+         case KC_CLMK:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK);
             }
